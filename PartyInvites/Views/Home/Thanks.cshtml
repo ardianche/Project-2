@@ -1,0 +1,53 @@
+﻿@model PartyInvites.Models.GuestResponse
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="~/Content/jsrender.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap-theme.css" rel ="stylesheet"/>
+    <meta name="viewport" content="width=device-width" />
+    <title>Thanks</title>
+</head>
+<body>
+    <div class="panel-success">
+        <div class="panel-heading text-center">
+            <h1>Thank you, @Model.Name  !</h1>
+        </div>
+        <div class="panel-body">
+              @if (Model.willAttend == true)
+                {
+                     @: It's great that you're coming. The drinks are already in the fridge! Here are your details:
+                   
+                  <script id="theTmp1" type="text/x-jsrender">
+                     <p> {{:name}}: has the email {{:email}} </br>
+                      and phone number: {{:phone}}</p>
+                     
+                  </script>
+                  <script>
+                      var data = {
+                          "name": @Model.Name,
+                          "email": @Model.Email,
+                          "phone": @Model.Phone,
+                      };
+                      var template = $.templates("#theTmp1");
+                      var htmlOutPut = template.render(data, "Ardian");
+
+                      $(".panel-body").html(htmlOutPut);
+
+                </script>
+              }
+              else
+              {
+                     @:Sorry to hear that you can't make it, but thanks for letting us know.
+                }
+            
+        </div>
+        </div>
+</body>
+</html>
